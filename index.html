@@ -1,0 +1,319 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NutriHealth | Nutrition Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="app">
+  <aside class="sidebar">
+    <div class="logo">
+      <span class="logo-mark">🌿</span>NutriHealth
+    </div>
+
+    <nav class="nav" aria-label="Navigasi utama">
+      <button class="active" data-nav="Dashboard">
+        <span class="nav-icon">⌂</span>Dashboard
+      </button>
+      <button data-nav="Food Diary">
+        <span class="nav-icon">♧</span>Food Diary
+      </button>
+      <button data-nav="Nutrition">
+        <span class="nav-icon">◴</span>Nutrition
+      </button>
+      <button data-nav="Progress">
+        <span class="nav-icon">↗</span>Progress
+      </button>
+      <button data-nav="Water Tracker">
+        <span class="nav-icon">♢</span>Water Tracker
+      </button>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <div class="profile">
+        <div class="avatar">👤</div>
+        <div>
+          <strong id="profileName">Pengunjung</strong><br>
+          <span id="profileStatus" style="color:#aabac3">Mode Tamu</span>
+        </div>
+      </div>
+
+      <button class="nav logout" id="authButton" data-nav="Logout">
+        <span class="nav-icon">⇥</span>
+        <span id="authButtonText">Login / Daftar</span>
+      </button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="welcome">
+        <h1 id="welcomeTitle">Halo, Sahabat Sehat 🌱</h1>
+        <p>Mari bangun kebiasaan sehat, satu hari setiap waktu.</p>
+      </div>
+
+      <div class="top-actions">
+        <input id="globalSearch" class="search" type="search"
+          placeholder="⌕ Cari makanan atau nutrisi...">
+        <button class="icon-btn" id="notify" aria-label="Notifikasi">♧</button>
+      </div>
+    </header>
+
+    <section class="top-grid">
+      <article class="hero">
+        <div class="hero-copy">
+          <div class="kicker">🌱 HEALTHY HABITS, HAPPY LIFE</div>
+          <h2>Tantangan 5 Porsi Buah &amp; Sayur</h2>
+          <p>Tambahkan lebih banyak buah dan sayur untuk mendukung pola makan seimbang.</p>
+          <button class="pill-btn" id="challengeBtn" aria-label="Lihat tantangan">→</button>
+        </div>
+
+        <div class="hero-art">
+          <img src="assets/salad-banner.jpg"
+            alt="Salad sehat dengan sayuran segar dan ayam panggang">
+        </div>
+      </article>
+
+      <article class="card activity">
+        <h3>Aktivitas Harian</h3>
+        <p class="sub">Ilustrasi tren mingguan</p>
+
+        <div class="chart">
+          <svg viewBox="0 0 300 110" preserveAspectRatio="none"
+            aria-label="Grafik contoh aktivitas">
+            <path d="M0 83 C20 68 25 90 48 55 S80 79 104 60 S130 81 153 47 S187 71 210 41 S248 57 270 22 S290 36 300 15"
+              fill="none" stroke="#65e6b1" stroke-width="2.5"/>
+            <path d="M0 94 C25 85 25 72 48 79 S82 65 106 80 S143 61 164 74 S198 59 222 67 S270 48 300 59"
+              fill="none" stroke="#f7bc45" stroke-width="2.5"/>
+            <path d="M0 103 C25 92 42 100 60 92 S94 99 120 89 S151 98 181 87 S220 91 248 78 S280 86 300 75"
+              fill="none" stroke="#75b4ff" stroke-width="2.5"/>
+          </svg>
+        </div>
+
+        <div class="days">
+          <span>Sen</span><span>Sel</span><span>Rab</span>
+          <span>Kam</span><span>Jum</span><span>Sab</span><span>Min</span>
+        </div>
+
+        <div class="legend">
+          <span><i class="dot" style="background:#65e6b1"></i>Kalori</span>
+          <span><i class="dot" style="background:#f7bc45"></i>Protein</span>
+          <span><i class="dot" style="background:#75b4ff"></i>Karbohidrat</span>
+        </div>
+      </article>
+
+      <article class="card calendar-card">
+        <div class="calendar-head">
+          <h3 id="monthLabel">Kalender</h3>
+          <div>
+            <button id="prevMonth" aria-label="Bulan sebelumnya">‹</button>
+            <button id="nextMonth" aria-label="Bulan berikutnya">›</button>
+          </div>
+        </div>
+        <div class="calendar-grid" id="calendarGrid"></div>
+      </article>
+    </section>
+
+    <section class="lower-grid">
+      <article class="card">
+        <h3>Ringkasan Nutrisi</h3>
+        <p class="sub">Asupan dari makanan yang dicatat hari ini</p>
+
+        <div class="nutrient">
+          <div class="nutrient-top">
+            <div class="nutrient-label">
+              <img class="nutrient-photo" src="assets/rice.jpg" alt="Nasi putih">
+              Karbohidrat
+            </div>
+            <strong id="carbPct">0%</strong>
+          </div>
+          <div class="track">
+            <div class="fill" id="carbFill" style="width:0;background:#45ad8a"></div>
+          </div>
+          <p class="nutrient-foot" id="carbText">0 g tercatat</p>
+        </div>
+
+        <div class="nutrient">
+          <div class="nutrient-top">
+            <div class="nutrient-label">
+              <img class="nutrient-photo" src="assets/chicken.jpg" alt="Ayam panggang">
+              Protein
+            </div>
+            <strong id="proteinPct">0%</strong>
+          </div>
+          <div class="track">
+            <div class="fill" id="proteinFill" style="width:0;background:#f5b33d"></div>
+          </div>
+          <p class="nutrient-foot" id="proteinText">0 g tercatat</p>
+        </div>
+
+        <div class="nutrient">
+          <div class="nutrient-top">
+            <div class="nutrient-label">
+              <img class="nutrient-photo" src="assets/avocado.jpg" alt="Alpukat">
+              Lemak
+            </div>
+            <strong id="fatPct">0%</strong>
+          </div>
+          <div class="track">
+            <div class="fill" id="fatFill" style="width:0;background:#6ea7ef"></div>
+          </div>
+          <p class="nutrient-foot" id="fatText">0 g tercatat</p>
+        </div>
+
+        <p class="note">
+          Target makronutrien hanya contoh demonstrasi, bukan saran medis pribadi.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Kalori Harian</h3>
+        <p class="sub">Catat makanan yang kamu konsumsi</p>
+
+        <div class="meal-list" id="mealList"></div>
+
+        <button class="add-row" id="addFoodBtn">＋ Tambah Makanan</button>
+
+        <div id="foodPicker" style="display:none;margin-top:12px">
+          <input id="foodSearch" class="search"
+            style="width:100%" placeholder="Cari nasi, apel, telur...">
+          <div id="foodOptions" style="display:grid;gap:7px;margin-top:8px"></div>
+        </div>
+      </article>
+
+      <div class="right-stack">
+            <article class="card budget" id="targetCard">
+        <div class="target-heading">
+          <button type="button" id="targetPrev"
+            class="target-arrow" aria-label="Target sebelumnya">
+            &#10094;
+          </button>
+
+          <div>
+            <h3 id="targetTitle">Target Kalori</h3>
+            <p class="sub">Ringkasan asupan harian</p>
+          </div>
+
+          <button type="button" id="targetNext"
+            class="target-arrow" aria-label="Target berikutnya">
+            &#10095;
+          </button>
+        </div>
+
+        <div class="donut" id="donut">
+          <div class="donut-text">
+            <strong id="calorieValue">0</strong>
+            <span id="targetUnit">/ 2.000 kkal</span>
+          </div>
+        </div>
+
+        <p class="sub" id="remainingText">
+          2.000 kkal dari target tersisa
+        </p>
+
+        <div class="target-indicators" aria-label="Pilihan target">
+          <span class="target-dot active"></span>
+          <span class="target-dot"></span>
+          <span class="target-dot"></span>
+          <span class="target-dot"></span>
+        </div>
+      </article>
+
+        <article class="card">
+          <h3>Minum Air</h3>
+          <p class="sub">Jaga tubuh tetap terhidrasi</p>
+
+          <div class="water-row">
+            <img class="water-photo" src="assets/water-glass.jpg" alt="Segelas air putih">
+            <div class="water-meta">
+              <strong id="waterCount">0 dari 8 gelas</strong>
+              <div class="water-track">
+                <div class="water-fill" id="waterFill" style="width:0"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="water-controls">
+            <button id="lessWater">− Kurangi</button>
+            <button id="moreWater">＋ Tambah gelas</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <p class="note">
+      Prototype edukasi NutriHealth. Data makanan merupakan contoh dan perlu
+      diverifikasi sebelum digunakan untuk keputusan kesehatan.
+    </p>
+  </main>
+</div>
+
+<!-- FORM LOGIN DAN REGISTRASI -->
+<div class="auth-overlay" id="authOverlay" style="display:none">
+  <section class="auth-card" role="dialog" aria-modal="true"
+    aria-labelledby="authTitle">
+
+    <button type="button" class="auth-close" id="authClose"
+      aria-label="Tutup">×</button>
+
+    <div class="auth-logo">🌿 NutriHealth</div>
+
+    <h2 id="authTitle">Selamat Datang!</h2>
+    <p id="authDescription">
+      Login untuk menyimpan riwayat makananmu.
+    </p>
+
+    <form id="authForm">
+      <div id="nameGroup" style="display:none">
+        <label for="authName">Nama lengkap</label>
+        <input id="authName" type="text" autocomplete="name"
+          placeholder="Masukkan nama lengkap">
+      </div>
+
+      <div>
+        <label for="authEmail">Email</label>
+        <input id="authEmail" type="email" autocomplete="email"
+          placeholder="nama@email.com" required>
+      </div>
+
+      <div>
+        <label for="authPassword">Password</label>
+        <input id="authPassword" type="password"
+          autocomplete="current-password"
+          placeholder="Masukkan password" required>
+      </div>
+
+      <div id="confirmPasswordGroup" style="display:none">
+        <label for="authPasswordConfirm">Konfirmasi password</label>
+        <input id="authPasswordConfirm" type="password"
+          autocomplete="new-password"
+          placeholder="Ulangi password">
+      </div>
+
+      <p id="authError" class="auth-error" role="alert"></p>
+
+      <button type="submit" class="auth-submit" id="authSubmit">
+        Login
+      </button>
+    </form>
+
+    <p class="auth-switch">
+      <span id="authSwitchText">Belum punya akun?</span>
+      <button type="button" id="authSwitch">Daftar sekarang</button>
+    </p>
+
+    <button type="button" class="auth-guest" id="continueGuest">
+      Lanjut sebagai tamu
+    </button>
+  </section>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script src="js/app.js" defer></script>
+</body>
+</html>
